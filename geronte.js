@@ -2,6 +2,10 @@
  * Create a Pretender API server for faking an API in your client-side tests.
  *
  * @class Geronte
+ * @constructor
+ * @param {Object} schema the API schema to stub from
+ * @param {Object} options options to customize the stub server
+ * @param {String} options.prefix a prefix to prepend onto the default stub paths
  */
 function Geronte(schema, options) {
   this.options = options || {};
@@ -13,6 +17,8 @@ function Geronte(schema, options) {
  * Create a new server and re-bind the default request handlers to it.
  *
  * @method reset
+ * @example
+ *     geronte.reset();
  */
 Geronte.prototype.reset = function geronteReset() {
   this.server = new Pretender();
@@ -60,6 +66,8 @@ Geronte.prototype.setupRequestHandlers = function geronteSetupRequestHandlers() 
  * @param {String} pathname the pathname to stub
  * @param {Array,Object} body the response body to send
  * @param {Number} statusCode the status code to send
+ * @example
+ *     geronte.createStub('POST', '/apps', { foo: 'bar' }, 201);
  */
 Geronte.prototype.createStub = function geronteCreateStub(method, pathname, body, statusCode) {
   statusCode = statusCode || 200;
