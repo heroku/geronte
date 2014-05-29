@@ -59,6 +59,15 @@ Geronte.prototype.setupRequestHandlers = function geronteSetupRequestHandlers() 
 };
 
 /**
+ * Shut down the server.
+ *
+ * @method shutdown
+ */
+Geronte.prototype.shutdown = function geronteShutdown() {
+  this.server.shutdown();
+};
+
+/**
  * Create a stub on the server.
  *
  * @method createStub
