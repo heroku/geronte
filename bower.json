@@ -1,0 +1,28 @@
+{
+  "name": "geronte",
+  "version": "0.0.0",
+  "authors": [
+    "Jonathan Clem <jonathan@jclem.net>"
+  ],
+  "description": "geronte provides a mock API for your client-side tests",
+  "main": "dist/geronte.js",
+  "keywords": [
+    "api",
+    "json",
+    "schema",
+    "stub"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/jclem/geronte",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "pretender": "~0.0.6",
+    "dorante": "~0.2.0"
+  }
+}
