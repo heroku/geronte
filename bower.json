@@ -5,7 +5,7 @@
     "Jonathan Clem <jonathan@jclem.net>"
   ],
   "description": "geronte provides a mock API for your client-side tests",
-  "main": "dist/geronte.js",
+  "main": "geronte.js",
   "keywords": [
     "api",
     "json",
