@@ -131,7 +131,7 @@
     });
 
     failures = failures.map(function(failure) {
-      return failure.method + ' ' + failure.pathname;
+      return failure.failureMessage();
     }).join(', ');
 
     if (failures.length) {
@@ -139,11 +139,25 @@
     }
   };
 
+  /*
+   * Represents a single expectation
+   *
+   * @class Expectation
+   * @constructor
+   * @param {String} method the HTTP verb to expect
+   * @param {String} pathname the pathname to expect
+   */
   function Expectation(method, pathname) {
     this.method = method;
     this.pathname = pathname;
   }
 
+  /*
+   * Set header, body and form data expectations
+   *
+   * @param opts {Object} can have headers, data and body keys. Data is
+   *                      converted to a string and stored as a body expectation
+   */
   Expectation.prototype.with = function(opts) {
     var data = opts.data ? global.jQuery.param(opts.data) : null;
 
@@ -151,6 +165,11 @@
     this.body = opts.body || data;
   };
 
+  /*
+   * Has this expectaion been fulfilled by req?
+   *
+   * @param req {jqXHR} representing a request
+   */
   Expectation.prototype.isFulfilledBy = function geronteIsFulfilledBy(req) {
     var matchesPath    = (req.url === this.pathname);
     var matchesMethod  = (req.method === this.method);
@@ -158,6 +177,19 @@
     var matchesBody    = (this.body == null || this.body === req.requestBody);
 
     return matchesPath && matchesMethod && matchesHeaders && matchesBody;
+  };
+
+  /*
+   * A nicely formatted failure message for the expectation
+   *
+   * @returns {String}
+   */
+  Expectation.prototype.failureMessage = function geronteFailureMessage() {
+    var msg = this.method + ' ' + this.pathname;
+    if (this.headers || this.body) { msg += ' with '; }
+    if (this.headers) { msg += ' headers: ' + JSON.stringify(this.headers); }
+    if (this.body)    { msg += ' body: ' + this.body; }
+    return msg;
   };
 
   /*
