@@ -10,9 +10,10 @@ describe('Geronte', function() {
   });
 
   describe('#expect', function() {
-    it('sets an expectaion', function() {
-      server.expect('GET', '/foo');
-      expect(server._expectations[0]).toEqual({ method: 'GET', pathname: '/foo' });
+    it('creates an expectaion', function() {
+      var expectation = server.expect('GET', '/foo');
+      expect(expectation instanceof Geronte.Expectation).toBe(true);
+      expect(server._expectations[0]).toEqual(expectation);
     });
 
     it('delegates to #createStub and passes arguments', function() {

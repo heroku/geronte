@@ -108,9 +108,10 @@
    *     geronte.expect('POST', '/apps', { foo: 'bar' }, 201);
    */
   Geronte.prototype.expect = function geronteCreateExpectation(method, pathname) {
-    // TODO: expectations on request body
-    this._expectations.push({ method: method, pathname: pathname });
+    var expectation = new Expectation(method, pathname);
+    this._expectations.push(expectation);
     this.createStub.apply(this, arguments);
+    return expectation;
   };
 
   /**
@@ -138,5 +139,17 @@
     }
   };
 
+  function Expectation(method, pathname) {
+    this.method = method;
+    this.pathname = pathname;
+  }
+
+  Expectation.prototype.with = function(opts) {
+    this.headers = opts.headers;
+    this.body = opts.body;
+    this.data = opts.data;
+  };
+
+  Geronte.Expectation = Expectation;
   global.Geronte = Geronte;
 })(this);
