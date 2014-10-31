@@ -1,0 +1,24 @@
+{
+  "curly": true,
+  "eqeqeq": true,
+  "undef": true,
+  "unused": true,
+  "globalstrict": true,
+  "browser": true,
+  "quotmark": "single",
+  "globals": {
+    "module": false,
+    "describe": false,
+    "jasmine": true,
+    "it": true,
+    "beforeEach": true,
+    "afterEach": true,
+    "expect": true,
+    "fetch": true,
+    "Promise": true,
+    "Dorante":  false,
+    "spyOn":    false,
+    "Geronte": false,
+    "Pretender": false
+  }
+}
