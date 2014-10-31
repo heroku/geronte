@@ -69,6 +69,7 @@
    */
   Geronte.prototype.shutdown = function geronteShutdown() {
     this.server.shutdown();
+    this.done();
   };
 
   /**

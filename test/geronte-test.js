@@ -100,4 +100,12 @@ describe('Geronte', function() {
       });
     });
   });
+
+  describe('#shutdown', function() {
+    it('calls #done', function() {
+      spyOn(server, 'done');
+      server.shutdown();
+      expect(server.done).toHaveBeenCalled();
+    });
+  });
 });
