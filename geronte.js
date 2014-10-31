@@ -112,8 +112,30 @@
     this.createStub.apply(this, arguments);
   };
 
+  /**
+   * Check that all expectations have been satisfied, throwing an error if they
+   * are not.
+   *
+   * @method done
+   * @throws {Error} one or more expectations were not satisfied
+   */
+  Geronte.prototype.done = function geronteDone() {
+    var handled = this.server.handledRequests;
+    var expectations = this._expectations;
+    var failures = expectations.filter(function(expectation) {
+      return !handled.some(function(req) {
+        return req.method === expectation.method && req.url === expectation.pathname;
+      });
+    });
 
+    failures = failures.map(function(failure) {
+      return failure.method + ' ' + failure.pathname;
+    }).join(', ');
 
+    if (failures.length) {
+      throw new Error('Expected ' + failures + ' to have been requested.');
+    }
+  };
 
   global.Geronte = Geronte;
 })(this);
