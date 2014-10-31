@@ -24,5 +24,9 @@
   "dependencies": {
     "pretender": "~0.0.6",
     "dorante": "~0.2.0"
+  },
+  "devDependencies": {
+    "fetch": "~0.2.1",
+    "es6-promise": "~1.0.0"
   }
 }

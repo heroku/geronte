@@ -1,6 +1,8 @@
 // Karma configuration
 // Generated on Fri Oct 31 2014 10:45:00 GMT+0000 (GMT)
 
+'use strict';
+
 module.exports = function(config) {
   config.set({
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -16,6 +18,8 @@ module.exports = function(config) {
       'bower_components/route-recognizer/dist/route-recognizer.js',
       'bower_components/pretender/pretender.js',
       'bower_components/dorante/dist/dorante.js',
+      'bower_components/es6-promise/promise.js',
+      'bower_components/fetch/fetch.js',
       'geronte.js',
       'test/**/*.js'
     ],
