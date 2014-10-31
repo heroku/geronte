@@ -1,6 +1,7 @@
 {
   "curly": true,
   "eqeqeq": true,
+  "eqnull": true,
   "undef": true,
   "unused": true,
   "globalstrict": true,
@@ -15,6 +16,7 @@
     "afterEach": true,
     "expect": true,
     "fetch": true,
+    "$": true,
     "Promise": true,
     "Dorante":  false,
     "spyOn":    false,

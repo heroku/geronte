@@ -126,7 +126,7 @@
     var expectations = this._expectations;
     var failures = expectations.filter(function(expectation) {
       return !handled.some(function(req) {
-        return req.method === expectation.method && req.url === expectation.pathname;
+        return expectation.isFulfilledBy(req);
       });
     });
 
@@ -145,10 +145,37 @@
   }
 
   Expectation.prototype.with = function(opts) {
+    var data = opts.data ? global.jQuery.param(opts.data) : null;
+
     this.headers = opts.headers;
-    this.body = opts.body;
-    this.data = opts.data;
+    this.body = opts.body || data;
   };
+
+  Expectation.prototype.isFulfilledBy = function geronteIsFulfilledBy(req) {
+    var matchesPath    = (req.url === this.pathname);
+    var matchesMethod  = (req.method === this.method);
+    var matchesHeaders = compareObjects(this.headers, req.requestHeaders);
+    var matchesBody    = (this.body == null || this.body === req.requestBody);
+
+    return matchesPath && matchesMethod && matchesHeaders && matchesBody;
+  };
+
+  /*
+   * Returns true if all of expectedValues are present in actualValues
+   *
+   * @param expectedValues {Object}
+   * @param actualValues {Object}
+   */
+  function compareObjects(expectedValues, actualValues) {
+    if (expectedValues == null) { return true; }
+    if (actualValues == null)   { return false; }
+
+    return Object.keys(expectedValues).every(function(expectedKey) {
+      return Object.keys(actualValues).some(function(actualKey) {
+        return expectedValues[expectedKey] === actualValues[actualKey];
+      });
+    });
+  }
 
   Geronte.Expectation = Expectation;
   global.Geronte = Geronte;

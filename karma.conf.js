@@ -20,6 +20,7 @@ module.exports = function(config) {
       'bower_components/dorante/dist/dorante.js',
       'bower_components/es6-promise/promise.js',
       'bower_components/fetch/fetch.js',
+      'bower_components/jquery/dist/jquery.js',
       'geronte.js',
       'test/**/*.js'
     ],
