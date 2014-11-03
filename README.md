@@ -37,6 +37,35 @@ Shut down the Geronte server and return `XMLHTTPRequest` to normal:
 geronte.shutdown();
 ```
 
+## Expectaions
+
+Geronte can also define request expectations:
+
+```js
+geronte.expect('POST', '/foo');
+// do stuff
+geronte.done();
+// throws an error if POST /foo didn't happen
+```
+
+Expectations can be made against request headers, body and form data:
+
+```js
+geronte.expect('POST', '/foo').with({
+  headers: { Accept: 'application/json' },
+  data: { foo: 'bar' }
+});
+
+geronte.expect('PUT', '/bar').with({
+  headers: { 'Content-Type': 'application/json' },
+  body: '{"bar":"baz"}'
+});
+// do stuff
+geronte.done();
+// throws an error if POST /foo or PUT /baz didn't happen with the specified
+// headers and body
+```
+
 [Pretender]: https://github.com/trek/pretender
 [dorante]: https://github.com/jclem/dorante
 [the-liar]: http://en.wikipedia.org/wiki/The_Liar_(Corneille)

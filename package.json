@@ -1,0 +1,28 @@
+{
+  "name": "geronte",
+  "version": "1.0.0",
+  "description": "Takes a JSON schema and uses Dorante and Pretender to create a client-side-only stub of an API",
+  "main": "geronte.js",
+  "scripts": {
+    "test": "./node_modules/.bin/jshint . && ./node_modules/.bin/karma start --single-run",
+    "postinstall": "./node_modules/.bin/bower install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heroku/geronte.git"
+  },
+  "author": "Heroku",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/heroku/geronte/issues"
+  },
+  "homepage": "https://github.com/heroku/geronte",
+  "devDependencies": {
+    "bower": "^1.3.12",
+    "jshint": "^2.5.8",
+    "karma": "^0.12.24",
+    "karma-cli": "0.0.4",
+    "karma-jasmine": "^0.1.5",
+    "karma-phantomjs-launcher": "^0.1.4"
+  }
+}
