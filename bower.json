@@ -1,6 +1,6 @@
 {
   "name": "geronte",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "authors": [
     "Jonathan Clem <jonathan@jclem.net>"
   ],
@@ -13,7 +13,7 @@
     "stub"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/jclem/geronte",
+  "homepage": "https://github.com/heroku/geronte",
   "ignore": [
     "**/.*",
     "node_modules",
