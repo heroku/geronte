@@ -30,6 +30,14 @@ describe('Geronte', function() {
           server.expect(method, path);
         });
 
+        it('clears the expectations', function() {
+          try {
+            server.done();
+          } catch (e) {
+            expect(server._expectations.length).toBe(0);
+          }
+        });
+
         describe('when the request is made', function() {
           it('does not error', function(done) {
             fetch(path, { method: method }).then(function() {

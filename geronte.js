@@ -116,14 +116,14 @@
 
   /**
    * Check that all expectations have been satisfied, throwing an error if they
-   * are not.
+   * are not and clear expectations ready for the next test.
    *
    * @method done
    * @throws {Error} one or more expectations were not satisfied
    */
   Geronte.prototype.done = function geronteDone() {
     var handled = this.server.handledRequests;
-    var expectations = this._expectations;
+    var expectations = this._expectations.splice(0);
     var failures = expectations.filter(function(expectation) {
       return !handled.some(function(req) {
         return expectation.isFulfilledBy(req);
