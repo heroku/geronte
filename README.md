@@ -1,5 +1,7 @@
 # [Geronte][the-liar]
 
+[![build status](https://travis-ci.org/heroku/geronte.svg?branch=master)](https://travis-ci.org/heroku/geronte)
+
 Geront takes a JSON schema and uses [Dorante][dorante] and
 [Pretender][pretender] to create a client-side-only stub of an API. Currently,
 it's only tested against the Heroku JSON API schema.
