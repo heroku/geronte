@@ -130,6 +130,13 @@
       });
     });
 
+    // Callback for all succesful expectations
+    expectations.forEach(function(expectation) {
+      if (failures.indexOf(expectation) === -1) {
+        expectation.callback(expectation.actualRequest);
+      }
+    });
+
     failures = failures.map(function(failure) {
       return failure.failureMessage();
     }).join(', ');
@@ -148,6 +155,7 @@
    * @param {String} pathname the pathname to expect
    */
   function Expectation(method, pathname) {
+    this.callback = function noop() {};
     this.method = method;
     this.pathname = pathname;
   }
@@ -155,14 +163,26 @@
   /*
    * Set header, body and form data expectations
    *
-   * @param opts {Object} can have headers, data and body keys. Data is
-   *                      converted to a string and stored as a body expectation
+   * @param opts {Object|Function} Object can have headers, data and body keys.
+   *                               Data is converted to a string and stored as a
+   *                               body expectation.
+   *                               If a function is passed, it is treated as the
+   *                               callback param.
+   * @param callback {Function} exectuted when #done is called. This is a good
+   *                            place for more specific expectations
    */
-  Expectation.prototype.with = function(opts) {
+  Expectation.prototype.with = function(opts, callback) {
+    if (typeof opts === 'function') {
+      callback = opts;
+      opts = {};
+    }
+
+    opts = opts || {};
     var data = opts.data ? global.jQuery.param(opts.data) : null;
 
     this.headers = opts.headers;
     this.body = opts.body || data;
+    if (callback) { this.callback = callback; }
   };
 
   /*
@@ -175,8 +195,11 @@
     var matchesMethod  = (req.method === this.method);
     var matchesHeaders = compareObjects(this.headers, req.requestHeaders);
     var matchesBody    = (this.body == null || this.body === req.requestBody);
+    var isFulfilled = matchesPath && matchesMethod && matchesHeaders && matchesBody;
 
-    return matchesPath && matchesMethod && matchesHeaders && matchesBody;
+    if (isFulfilled) { this.actualRequest = req; }
+
+    return isFulfilled;
   };
 
   /*

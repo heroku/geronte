@@ -2,10 +2,11 @@
 
 describe('Geronte.Expectation', function() {
   describe('initializer', function() {
-    it('stores method and pathname', function() {
+    it('stores method, pathname and a default callback', function() {
       var expectation = new Geronte.Expectation('GET', '/foo');
       expect(expectation.method).toEqual('GET');
       expect(expectation.pathname).toEqual('/foo');
+      expect(typeof expectation.callback).toEqual('function');
     });
   });
 
@@ -32,6 +33,24 @@ describe('Geronte.Expectation', function() {
       expectation.with({ data: { foo: 'bar', baz: 'qux' } });
       expect(expectation.body).toEqual('foo=bar&baz=qux');
     });
+
+    describe('when passed a function', function() {
+      describe('as the first argument', function() {
+        it('is stored as a callback for later', function() {
+          var doItLater = function() {};
+          expectation.with(doItLater);
+          expect(expectation.callback).toBe(doItLater);
+        });
+      });
+
+      describe('as the second argument', function() {
+        it('is stored as a callback for later', function() {
+          var doItLater = function() {};
+          expectation.with({}, doItLater);
+          expect(expectation.callback).toBe(doItLater);
+        });
+      });
+    });
   });
 
   describe('#isFulfilledBy', function() {
@@ -45,6 +64,12 @@ describe('Geronte.Expectation', function() {
       it('is true when passed a matching request', function() {
         var result = expectation.isFulfilledBy({ method: 'GET', url: '/foo' });
         expect(result).toBe(true);
+      });
+
+      it('stores a matching request', function() {
+        var req = { method: 'GET', url: '/foo' };
+        expectation.isFulfilledBy(req);
+        expect(expectation.actualRequest).toBe(req);
       });
 
       it('is false when passed a non matching request', function() {

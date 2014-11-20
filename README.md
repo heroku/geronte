@@ -68,6 +68,27 @@ geronte.done();
 // headers and body
 ```
 
+A callback can also be set against an expectation, either instead of or in
+addition to body and header expectations. This is a good place for setting more
+fine grained expectations. This callback is only executed once other
+expectations have been satisfied:
+
+```js
+geronte.expect('PUT', '/bar').with(function(jqXHR) {
+  expect(JSON.parse(jqXHR.requestBody).foo).toEqual('bar');
+});
+
+// OR
+
+geronte.expect('PUT', '/bar').with({
+  headers: { 'Content-Type': 'application/json' },
+  body: '{"bar":"baz"}'
+}, function(jqXHR) {
+  expect(JSON.parse(jqXHR.requestBody).foo).toEqual('bar');
+});
+```
+
+
 [Pretender]: https://github.com/trek/pretender
 [dorante]: https://github.com/jclem/dorante
 [the-liar]: http://en.wikipedia.org/wiki/The_Liar_(Corneille)

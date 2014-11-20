@@ -26,8 +26,10 @@ describe('Geronte', function() {
   describe('#done', function() {
     describe('with single expectation', function() {
       function itBehavesLikeAnExpectation(method, path) {
+        var expectation;
+
         beforeEach(function() {
-          server.expect(method, path);
+          expectation = server.expect(method, path);
         });
 
         it('clears the expectations', function() {
@@ -44,13 +46,38 @@ describe('Geronte', function() {
               expect(function() { server.done(); }).not.toThrow();
             }).then(done);
           });
+
+          describe('when a callback is defined', function() {
+            var callback;
+
+            beforeEach(function() {
+              callback = jasmine.createSpy('expectation callback');
+              expectation.with(callback);
+            });
+
+            it('is executed', function(done) {
+              fetch(path, { method: method }).then(function() {
+                server.done();
+                expect(callback).toHaveBeenCalled();
+              }).then(done);
+            });
+
+            it('is passed the request as an argument', function(done) {
+              fetch(path, { method: method }).then(function() {
+                server.done();
+                var arg = callback.calls.argsFor(0)[0];
+                expect(arg.method).toEqual(method);
+                expect(arg.url).toEqual(path);
+              }).then(done);
+            });
+          });
         });
 
         describe('when the request is not made', function() {
           it('throws an error', function() {
             expect(function() {
               server.done();
-            }).toThrow('Expected ' + method + ' ' + path + ' to have been requested.');
+            }).toThrowError('Expected ' + method + ' ' + path + ' to have been requested.');
           });
         });
       }
@@ -95,7 +122,7 @@ describe('Geronte', function() {
           fetch('/foo').then(function() {
             expect(function() {
               server.done();
-            }).toThrow('Expected GET /bar to have been requested.');
+            }).toThrowError('Expected GET /bar to have been requested.');
           }).then(done);
         });
       });
@@ -104,7 +131,7 @@ describe('Geronte', function() {
         it('throws an error', function() {
           expect(function() {
             server.done();
-          }).toThrow('Expected GET /foo, GET /bar to have been requested.');
+          }).toThrowError('Expected GET /foo, GET /bar to have been requested.');
         });
       });
     });
