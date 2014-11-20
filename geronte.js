@@ -188,8 +188,11 @@
     var matchesMethod  = (req.method === this.method);
     var matchesHeaders = compareObjects(this.headers, req.requestHeaders);
     var matchesBody    = (this.body == null || this.body === req.requestBody);
+    var isFulfilled = matchesPath && matchesMethod && matchesHeaders && matchesBody;
 
-    return matchesPath && matchesMethod && matchesHeaders && matchesBody;
+    if (isFulfilled) { this.actualRequest = req; }
+
+    return isFulfilled;
   };
 
   /*

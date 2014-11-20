@@ -66,6 +66,12 @@ describe('Geronte.Expectation', function() {
         expect(result).toBe(true);
       });
 
+      it('stores a matching request', function() {
+        var req = { method: 'GET', url: '/foo' };
+        expectation.isFulfilledBy(req);
+        expect(expectation.actualRequest).toBe(req);
+      });
+
       it('is false when passed a non matching request', function() {
         var result = expectation.isFulfilledBy({ method: 'POST', url: '/foo' });
         expect(result).toBe(false);
