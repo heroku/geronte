@@ -50,7 +50,7 @@ describe('Geronte', function() {
           it('throws an error', function() {
             expect(function() {
               server.done();
-            }).toThrow('Expected ' + method + ' ' + path + ' to have been requested.');
+            }).toThrowError('Expected ' + method + ' ' + path + ' to have been requested.');
           });
         });
       }
@@ -95,7 +95,7 @@ describe('Geronte', function() {
           fetch('/foo').then(function() {
             expect(function() {
               server.done();
-            }).toThrow('Expected GET /bar to have been requested.');
+            }).toThrowError('Expected GET /bar to have been requested.');
           }).then(done);
         });
       });
@@ -104,7 +104,7 @@ describe('Geronte', function() {
         it('throws an error', function() {
           expect(function() {
             server.done();
-          }).toThrow('Expected GET /foo, GET /bar to have been requested.');
+          }).toThrowError('Expected GET /foo, GET /bar to have been requested.');
         });
       });
     });
