@@ -130,6 +130,13 @@
       });
     });
 
+    // Callback for all succesful expectations
+    expectations.forEach(function(expectation) {
+      if (failures.indexOf(expectation) === -1) {
+        expectation.callback(expectation.actualRequest);
+      }
+    });
+
     failures = failures.map(function(failure) {
       return failure.failureMessage();
     }).join(', ');
