@@ -182,7 +182,7 @@
 
     this.headers = opts.headers;
     this.body = opts.body || data;
-    this.callback = callback;
+    if (callback) { this.callback = callback; }
   };
 
   /*
