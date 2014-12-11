@@ -23,8 +23,8 @@ geronte.setupRequestHandlers();
 Add some custom factories and request handlers:
 
 ```javascript
-geronte.daronte.defineFactory('foo', { bar: 'baz' });
-geronte.createStub('GET', '/foos', [geronte.daronte.factory('foo')]);
+geronte.dorante.defineFactory('foo', { bar: 'baz' });
+geronte.createStub('GET', '/foos', [geronte.dorante.factory('foo')]);
 ```
 
 Reset the custom request handlers (but leave custom factories alone):
