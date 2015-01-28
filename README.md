@@ -39,7 +39,7 @@ Shut down the Geronte server and return `XMLHTTPRequest` to normal:
 geronte.shutdown();
 ```
 
-## Expectaions
+## Expectations
 
 Geronte can also define request expectations:
 
