@@ -22,8 +22,8 @@
     "tests"
   ],
   "dependencies": {
-    "pretender": "~0.0.6",
-    "dorante": "~0.2.0",
+    "pretender": "0.6.0",
+    "dorante": "~0.3.0",
     "jquery": "~2.1.1"
   },
   "devDependencies": {

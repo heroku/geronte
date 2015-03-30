@@ -92,7 +92,7 @@
         { 'Content-Type': 'application/json' },
         JSON.stringify(body)
       ];
-    });
+    }, false);
   };
 
   /**
