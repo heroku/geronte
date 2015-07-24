@@ -1,3 +1,7 @@
+# v0.5.0 - 24th July 2015
+
+- Allow dynamic segments in path expectations.
+
 # v0.3.0 - 20rd November 2014
 
 - Allow Expectation#when to accept a callback.

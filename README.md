@@ -50,6 +50,14 @@ geronte.done();
 // throws an error if POST /foo didn't happen
 ```
 
+Dynamic segments are supported for paths:
+```js
+geronte.expect('POST', '/foo/:id');
+// do stuff
+geronte.done();
+// throws an error if POST /foo/anything didn't happen
+```
+
 Expectations can be made against request headers, body and form data:
 
 ```js
