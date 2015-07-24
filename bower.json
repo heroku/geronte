@@ -24,10 +24,14 @@
   "dependencies": {
     "pretender": "0.6.0",
     "dorante": "~0.3.0",
-    "jquery": "~2.1.1"
+    "jquery": "~2.1.1",
+    "route-recognizer": "~0.1.9"
   },
   "devDependencies": {
     "fetch": "~0.2.1",
     "es6-promise": "~1.0.0"
+  },
+  "resolutions": {
+    "FakeXMLHttpRequest": "~1.0.0"
   }
 }
