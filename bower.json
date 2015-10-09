@@ -30,8 +30,5 @@
   "devDependencies": {
     "fetch": "~0.2.1",
     "es6-promise": "~1.0.0"
-  },
-  "resolutions": {
-    "FakeXMLHttpRequest": "~1.0.0"
   }
 }
