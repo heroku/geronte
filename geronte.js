@@ -152,7 +152,7 @@
    * @class Expectation
    * @constructor
    * @param {String} method the HTTP verb to expect
-   * @param {String} pathname the pathname to expect
+   * @param {String|Regex} pathname the expected pathname
    */
   function Expectation(method, pathname) {
     this.callback = function noop() {};
@@ -191,7 +191,10 @@
    * @param req {jqXHR} representing a request
    */
   Expectation.prototype.isFulfilledBy = function geronteIsFulfilledBy(req) {
-    var matchesPath    = (req.url === this.pathname);
+    var router = new global.RouteRecognizer();
+    router.add([{ path: this.pathname }]);
+
+    var matchesPath    = !!router.recognize(req.url);
     var matchesMethod  = (req.method === this.method);
     var matchesHeaders = compareObjects(this.headers, req.requestHeaders);
     var matchesBody    = (this.body == null || this.body === req.requestBody);

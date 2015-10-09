@@ -77,6 +77,19 @@ describe('Geronte.Expectation', function() {
         expect(result).toBe(false);
       });
 
+      describe('with a dynamic path', function() {
+        beforeEach(function() {
+          expectation = new Geronte.Expectation('GET', '/foo/:id');
+        });
+
+        it('is true when passed a matching request', function() {
+          var result = expectation.isFulfilledBy({
+            method: 'GET',
+            url: '/foo/123' });
+          expect(result).toBe(true);
+        });
+      });
+
       describe('and headers', function() {
         beforeEach(function() {
           expectation.with({
