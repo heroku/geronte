@@ -1,3 +1,6 @@
+# v0.6.0 - 9th October 2015
+- Update Pretender to v0.9.0
+
 # v0.5.0 - 24th July 2015
 
 - Allow dynamic segments in path expectations.
